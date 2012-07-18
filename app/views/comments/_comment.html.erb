@@ -1,0 +1,43 @@
+<%= form_for([@post, @post.comments.build]) do |f| %>
+<div class="field">
+    <%= f.label :commenter %>
+    <%= f.text_field :commenter %>
+  </div>
+<div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+<div class="actions">
+    <%= f.submit %>
+  </div>
+ 
+<% end %>
+<b>Commenter:</b>
+  <%= comment.commenter %>
+   
+   
+   
+    <b>Comment:</b>
+      <%= comment.body %>
+  <strong>Commenter:</strong>
+ 
+  <strong>Comment:</strong>
+ 
+   'Are you sure?',
+               :method =&gt; :delete %&gt;
+class CommentsController &lt; ApplicationController
+ 
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.create(params[:comment])
+    redirect_to post_path(@post)
+  end
+ 
+  def destroy
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
+    @comment.destroy
+    redirect_to post_path(@post)
+  end
+ 
+end
